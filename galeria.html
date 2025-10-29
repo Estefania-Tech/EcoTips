@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería EcoTips - Reciclaje Inteligente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>♻️ Galería EcoTips</h1>
+    <p>Inspírate con ideas de reciclaje y reutilización</p>
+    <main class="container my-5">
+        <div class="text-center mb-4">
+            <a href="index.html" class="btn btn-outline-success mt-3">Inicio</a>
+            <a href="galeria.html" class="btn btn-outline-success mt-3">Galería</a>
+        </div>
+    </main>
+  </header>
+
+    <main class="container my-5">
+       <div class="row g-4" id="galleryContainer">
+            <!-- Plástico -->
+            <div class="col-md-4 gallery-item" data-category="plastico" data-title="Botellas de plástico recicladas" 
+                data-desc="Estas botellas se convierten en nuevos envases, fibras textiles o materiales de construcción.">
+                <img src="assets/botella plastica.avif" alt="Botellas de plástico recicladas">
+                <div class="gallery-caption">Botellas de plástico recicladas</div>
+            </div>
+
+            <!-- Papel -->
+            <div class="col-md-4 gallery-item" data-category="papel" data-title="Reciclaje de papel" data-desc="El reciclaje de papel ayuda a reducir la deforestación
+            al ahorrar aproximadamente 17 árboles por tonelada de papel reciclado. (Ecoarmonia)">
+                <img src="assets/papel.jpg" alt="Reciclaje de papel">
+                <div class="gallery-caption">Reciclaje de papel usado</div>
+            </div>
+
+            <!-- Vidrio -->
+            <div class="col-md-4 gallery-item" data-category="vidrio" data-title="Frascos de vidrio reciclados"
+            data-desc="Reciclar el vidrio ayuda a proteger el medio ambiente y a reducir la cantidad de residuos, 
+            disminuye la necesidad de extraer materia prima reduciendo la huella de carbomo. (Laura fernandez 2024)">
+                <img src="assets/vidrio.jpg" alt="Frascos de vidrio reciclados">
+                <div class="gallery-caption">Frascos de vidrio reutilizados</div>
+            </div>
+
+            <!-- Metal -->
+            <div class="col-md-4 gallery-item" data-category="metal" data-title="Reciclaje de latas metálicas"
+            data-desc="Reciclar latas metálicas reduce la emision de gases de efecto invernadero y promueve una economía 
+            circular que beneficia al medio ambiente y a la sociedad en general">
+                <img src="assets/latas.jpg" alt="Reciclaje de latas metálicas">
+                <div class="gallery-caption">Latas recicladas creativamente</div>
+            </div>
+
+            <!-- Orgánico -->
+            <div class="col-md-4 gallery-item" data-category="organico" data-title="Compost orgánico natural"
+            data-desc="El compost ayuda a agregar material orgánico al suelo, lo cual es crucial para la formación 
+            de agregado del suelo. Estos agregados son grupos de partículas de suelo que se mantienen unidas, lo que mejora 
+            la porosidad y permite una mejor circulación de aire y agua. (Tu jardín Verde)">
+                <img src="assets/compost.webp" alt="Compost orgánico natural">
+                <div class="gallery-caption">Compost orgánico natural</div>
+            </div>
+
+            <!-- Plástico -->
+            <div class="col-md-4 gallery-item" data-category="plastico" data-title="Arte con plásticos reciclados" data-desc="Al utilizar materiales reciclados, 
+                reduce la cantidad de plásticos que terminan en vertederos y ocenanos, el arte reciclado promueve la reutilización de materiales
+                y ayuda a sensibilizar la importancia del reciclaje y conservación. (Adriana Guevara 2024)">
+                <img src="assets/arte-reciclaje.webp" alt="Arte con plásticos reciclados">
+                <div class="gallery-caption">Arte con plásticos reciclados</div>
+            </div>
+        </div>
+  </main>
+
+  <footer>
+    <a href="contacto.html" >Sobre nosotros · 2025 🌱</a>
+  </footer>
+
+   <!-- MODAL para detalle de imagen -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="modalTitle"></h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="" class="img-fluid rounded mb-3">
+          <p id="modalDescription" class="text-muted"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Filtros
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        filterButtons.forEach(btn => btn.classList.replace('btn-success', 'btn-outline-success'));
+        button.classList.replace('btn-outline-success', 'btn-success');
+
+        galleryItems.forEach(item => {
+          item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Modal de detalle
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        modalTitle.textContent = item.dataset.title;
+        modalImage.src = item.querySelector('img').src;
+        modalDescription.textContent = item.dataset.desc;
+        imageModal.show();
+      });
+    });
+  </script>
+    
+
+</body>
+</html>
