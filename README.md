@@ -4,3 +4,8 @@ dicha página esta dividida en tres partes , index.hml, galeria.html y contacto.
 
 cada sección esta hecha para ayudar a comprender como se puede ayudar a mejorar y cuidar el medio
 ambiente, danto tips ecologicos y mostrando lo que se puede hacer con productos reciclabes.
+
+
+Información el estudiante:
+Estafania Toro Bañol
+ID 100124444
